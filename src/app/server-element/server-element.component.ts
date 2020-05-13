@@ -11,6 +11,9 @@ import {
   AfterViewInit,
   AfterViewChecked,
   OnDestroy,
+  ViewChild,
+  ElementRef,
+  ContentChild,
 } from '@angular/core';
 
 @Component({
@@ -34,6 +37,11 @@ export class ServerElementComponent
 
   @Input() name: string;
 
+  @ViewChild('heading', { static: true })
+  header: ElementRef;
+
+  @ContentChild('contentParagraph', { static: true }) paragraph: ElementRef;
+
   constructor() {
     console.log('Constructor called');
   }
@@ -49,10 +57,17 @@ export class ServerElementComponent
 
   ngOnInit(): void {
     console.log('ngOnInit called');
+    console.log('Text Content: ' + this.header.nativeElement.textContent);
+    console.log(
+      'Text Content of paragraph: ' + this.paragraph.nativeElement.textContent
+    );
   }
 
   ngAfterContentInit() {
     console.log('ngAfterContentInit');
+    console.log(
+      'Text Content of paragraph: ' + this.paragraph.nativeElement.textContent
+    );
   }
 
   ngAfterContentChecked() {
@@ -61,6 +76,7 @@ export class ServerElementComponent
 
   ngAfterViewInit() {
     console.log('ngAfterViewInit');
+    console.log('Text Content: ' + this.header.nativeElement.textContent);
   }
 
   ngAfterViewChecked() {
